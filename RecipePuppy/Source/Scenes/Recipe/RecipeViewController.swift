@@ -1,0 +1,182 @@
+//
+//  RecipeViewController.swift
+//  RecipePuppy
+//
+//  Created Lopez, Margaret on 5/10/18.
+//  Copyright © 2018 Lopez, Margaret. All rights reserved.
+//
+
+import UIKit
+
+// MARK: - Protocols
+
+protocol RecipeViewControllerInputProtocol: class {
+    var presenter: RecipePresenterInputProtocol? { get set }
+    
+    func showResults(result: [Result])
+    
+    func foundError()
+    
+    func hiddenActivityIndicator()
+    
+    func showActivityIndicator()
+}
+
+// MARK: - Class Implementation
+
+class RecipeViewController: UIViewController, UISearchBarDelegate, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
+    
+    // MARK: Properties
+    
+    @IBOutlet weak var containterTitle: UIView!
+    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
+    @IBOutlet var searchBarTopConstraint: NSLayoutConstraint!
+    
+    var presenter: RecipePresenterInputProtocol?
+    
+    var results = [Result]()
+    var resultFilter = [Result]()
+    var inModeFilter: Bool = false
+    var numberPagination: Int = 1
+    var lowerSearchText: String = ""
+    
+    // MARK: View life cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.configView()
+        self.presenter?.onViewDidLoad()
+    }
+    
+    func configView() {
+        
+        activityIndicator.startAnimating()
+        tableView.alpha = 0.0
+        
+        searchBarTopConstraint.isActive = false
+        searchBar.isHidden = true
+        searchBar.delegate = self
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        searchBar.returnKeyType = UIReturnKeyType.done
+    }
+    
+    // UISearchBarDelegate
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        if searchBar.text != "" && searchBar.text != nil {
+            
+            self.lowerSearchText = searchBar.text!.lowercased()
+            self.presenter?.searchRecipe(ingredients: lowerSearchText, page: numberPagination)
+        } else {
+            
+            self.numberPagination = 1
+            view.endEditing(true)
+        }
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       
+        return self.results.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     
+        let cell: RecipeViewCell = RecipeViewCell.createCell(tableView: tableView)
+        
+        cell.configureCell(result: results[indexPath.row])
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 150.0
+    }
+    // MARK: - UIScrollViewDelegate
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        // If the value of decelerate is false, that means the user stopped dragging the table view
+        if !decelerate {
+            
+            let spinner = UIActivityIndicatorView(style: .gray)
+            spinner.startAnimating()
+            spinner.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 44.0)
+            numberPagination += 1
+            self.tableView.tableFooterView = spinner
+            self.tableView.tableFooterView?.isHidden = false
+            self.presenter?.searchRecipe(ingredients: lowerSearchText, page: numberPagination)
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func searchAction(_ sender: UIButton) {
+
+        searchBarTopConstraint.isActive = true
+        searchBar.isHidden = false
+    }
+
+}
+
+// MARK: - ViewProtocol
+
+extension RecipeViewController: RecipeViewControllerInputProtocol {
+    
+    func showResults(result: [Result]) {
+        self.results += result
+        self.tableView.reloadData()
+        self.tableView.tableFooterView?.isHidden = true
+    }
+    
+    func foundError() {
+        
+        let alertController: UIAlertController = UIAlertController(title: "Oops!", message: "We found some errors in the search", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func hiddenActivityIndicator() {
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.tableView.alpha = 1.0
+            self.activityIndicator.alpha = 0.0
+        }) { (_) in
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
+    func showActivityIndicator() {
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.tableView.alpha = 0.0
+            self.activityIndicator.alpha = 1.0
+        }) { (_) in
+            self.activityIndicator.startAnimating()
+        }
+    }
+}
