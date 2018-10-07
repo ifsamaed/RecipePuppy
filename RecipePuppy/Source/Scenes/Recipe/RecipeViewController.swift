@@ -33,7 +33,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate, UIScrollViewD
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
+    
     @IBOutlet var searchBarTopConstraint: NSLayoutConstraint!
     
     var presenter: RecipePresenterInputProtocol?
@@ -43,6 +43,7 @@ class RecipeViewController: UIViewController, UISearchBarDelegate, UIScrollViewD
     var inModeFilter: Bool = false
     var numberPagination: Int = 1
     var lowerSearchText: String = ""
+    var downloadsInProgress: Bool = false
     
     // MARK: View life cycle
     
@@ -89,12 +90,12 @@ class RecipeViewController: UIViewController, UISearchBarDelegate, UIScrollViewD
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
+        
         return self.results.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     
+        
         let cell: RecipeViewCell = RecipeViewCell.createCell(tableView: tableView)
         
         cell.configureCell(result: results[indexPath.row])
@@ -106,6 +107,18 @@ class RecipeViewController: UIViewController, UISearchBarDelegate, UIScrollViewD
         
         return 150.0
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let resultSelected: Result?
+        resultSelected = results[indexPath.row]
+        
+        if let result = resultSelected {
+            
+            self.presenter?.openDetail(result: result)
+        }
+    }
+    
     // MARK: - UIScrollViewDelegate
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -117,28 +130,35 @@ class RecipeViewController: UIViewController, UISearchBarDelegate, UIScrollViewD
         // If the value of decelerate is false, that means the user stopped dragging the table view
         if !decelerate {
             
-            let spinner = UIActivityIndicatorView(style: .gray)
-            spinner.startAnimating()
-            spinner.frame = CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 44.0)
-            numberPagination += 1
-            self.tableView.tableFooterView = spinner
-            self.tableView.tableFooterView?.isHidden = false
-            self.presenter?.searchRecipe(ingredients: lowerSearchText, page: numberPagination)
+
         }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let isReachingEnd = scrollView.contentOffset.y >= 0
+            && scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)
+        
+        if isReachingEnd && !downloadsInProgress {
+                   
+            self.numberPagination += 1
+            self.downloadsInProgress = true
+            self.presenter?.searchRecipe(ingredients: lowerSearchText, page: numberPagination)
+        }
     }
     
     // MARK: - Actions
     
     @IBAction func searchAction(_ sender: UIButton) {
-
+        
         searchBarTopConstraint.isActive = true
         searchBar.isHidden = false
     }
-
+    
 }
 
 // MARK: - ViewProtocol
@@ -149,6 +169,7 @@ extension RecipeViewController: RecipeViewControllerInputProtocol {
         self.results += result
         self.tableView.reloadData()
         self.tableView.tableFooterView?.isHidden = true
+        self.downloadsInProgress = false
     }
     
     func foundError() {

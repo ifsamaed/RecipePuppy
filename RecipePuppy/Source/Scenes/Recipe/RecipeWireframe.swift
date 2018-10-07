@@ -14,6 +14,8 @@ protocol RecipeWireframeInputProtocol: class {
     // Input functions from presenter to wireframe
 
     static func createModule() -> UIViewController
+    
+    func openWebView(result: Result, view: RecipeViewControllerInputProtocol)
 }
 
 // MARK: - Class Implementation
@@ -46,4 +48,15 @@ class RecipeWireframe: RecipeWireframeInputProtocol {
 
         return UIViewController()
     }
+    
+    func openWebView(result: Result, view: RecipeViewControllerInputProtocol) {
+        
+        let webView = WebViewWireframe.createModule(result: result)
+        
+        if let source = view as? UIViewController {
+            
+            source.present(webView, animated: true, completion: nil)
+        }
+    }
+
 }

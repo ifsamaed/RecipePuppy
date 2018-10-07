@@ -39,4 +39,15 @@ class Result: Codable {
         
         return UIImage()
     }
+    
+    func getURL() -> URL? {
+        
+        if let url = href,
+            let nameURL = URL(string: url) {
+         
+            return nameURL
+        }
+        
+        return nil
+    }
 }

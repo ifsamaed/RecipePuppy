@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		437554C1216A8EEB004B9C4B /* WebViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437554BE216A8EEB004B9C4B /* WebViewPresenter.swift */; };
+		437554C2216A8EEB004B9C4B /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437554BF216A8EEB004B9C4B /* WebViewViewController.swift */; };
+		437554C3216A8EEB004B9C4B /* WebViewWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437554C0216A8EEB004B9C4B /* WebViewWireframe.swift */; };
+		437554C6216ABDB9004B9C4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 437554C5216ABDB9004B9C4B /* Assets.xcassets */; };
 		43C7464721673B680077291D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7464621673B680077291D /* AppDelegate.swift */; };
 		43C7464921673B680077291D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7464821673B680077291D /* ViewController.swift */; };
 		43C7464C21673B680077291D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43C7464A21673B680077291D /* Main.storyboard */; };
-		43C7465121673B690077291D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43C7465021673B690077291D /* Assets.xcassets */; };
 		43C7465421673B690077291D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43C7465221673B690077291D /* LaunchScreen.storyboard */; };
 		43C7465F21673B690077291D /* RecipePuppyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7465E21673B690077291D /* RecipePuppyTests.swift */; };
 		43C7466A21673B690077291D /* RecipePuppyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7466921673B690077291D /* RecipePuppyUITests.swift */; };
@@ -45,11 +48,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		437554BE216A8EEB004B9C4B /* WebViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenter.swift; sourceTree = "<group>"; };
+		437554BF216A8EEB004B9C4B /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
+		437554C0216A8EEB004B9C4B /* WebViewWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewWireframe.swift; sourceTree = "<group>"; };
+		437554C5216ABDB9004B9C4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43C7464321673B680077291D /* RecipePuppy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipePuppy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43C7464621673B680077291D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43C7464821673B680077291D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		43C7464B21673B680077291D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		43C7465021673B690077291D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43C7465321673B690077291D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43C7465521673B690077291D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43C7465A21673B690077291D /* RecipePuppyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipePuppyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +102,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		437554C4216A8EF7004B9C4B /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				437554BF216A8EEB004B9C4B /* WebViewViewController.swift */,
+				437554BE216A8EEB004B9C4B /* WebViewPresenter.swift */,
+				437554C0216A8EEB004B9C4B /* WebViewWireframe.swift */,
+			);
+			name = WebView;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		43C7463A21673B680077291D = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +183,7 @@
 		43C74679216743810077291D /* Artwork */ = {
 			isa = PBXGroup;
 			children = (
-				43C7465021673B690077291D /* Assets.xcassets */,
+				437554C5216ABDB9004B9C4B /* Assets.xcassets */,
 			);
 			path = Artwork;
 			sourceTree = "<group>";
@@ -214,18 +231,10 @@
 		43C7467E216744200077291D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				43C746812167461B0077291D /* DetailRecipe */,
 				43C74680216746140077291D /* Recipe */,
-				43C7467F216745D20077291D /* ListRecipes */,
+				437554C4216A8EF7004B9C4B /* WebView */,
 			);
 			path = Scenes;
-			sourceTree = "<group>";
-		};
-		43C7467F216745D20077291D /* ListRecipes */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ListRecipes;
 			sourceTree = "<group>";
 		};
 		43C74680216746140077291D /* Recipe */ = {
@@ -237,13 +246,6 @@
 				43F5C1F02167FFA6007414AC /* RecipeCell */,
 			);
 			path = Recipe;
-			sourceTree = "<group>";
-		};
-		43C746812167461B0077291D /* DetailRecipe */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DetailRecipe;
 			sourceTree = "<group>";
 		};
 		43F5C1EF2167C58E007414AC /* Commons */ = {
@@ -375,8 +377,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				43C7465421673B690077291D /* LaunchScreen.storyboard in Resources */,
-				43C7465121673B690077291D /* Assets.xcassets in Resources */,
 				43F5C1FA216A5A92007414AC /* RecipeViewCell.xib in Resources */,
+				437554C6216ABDB9004B9C4B /* Assets.xcassets in Resources */,
 				43C7464C21673B680077291D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,9 +404,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				437554C2216A8EEB004B9C4B /* WebViewViewController.swift in Sources */,
+				437554C1216A8EEB004B9C4B /* WebViewPresenter.swift in Sources */,
 				43F5C1EC2167C47D007414AC /* RecipeWireframe.swift in Sources */,
 				43C7464921673B680077291D /* ViewController.swift in Sources */,
 				43F5C1DC2167AFE7007414AC /* RecipeRepository.swift in Sources */,
+				437554C3216A8EEB004B9C4B /* WebViewWireframe.swift in Sources */,
 				43F5C1E42167B603007414AC /* Recipe.swift in Sources */,
 				43C74686216755AC0077291D /* APIConstants.swift in Sources */,
 				43F5C1EB2167C47D007414AC /* RecipeViewController.swift in Sources */,

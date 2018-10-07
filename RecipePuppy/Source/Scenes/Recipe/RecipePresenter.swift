@@ -18,6 +18,7 @@ protocol RecipePresenterInputProtocol: class {
 
     func onViewDidLoad()
     func searchRecipe(ingredients: String, page: Int?)
+    func openDetail(result: Result)
 }
 
 // MARK: - Class Implementation
@@ -39,6 +40,14 @@ class RecipePresenter: RecipePresenterInputProtocol {
     func searchRecipe(ingredients: String, page: Int? = nil) {
         self.view?.showActivityIndicator()
         self.recipeInteractor?.findListRecipes(ingredients: [ingredients], query: nil, page: page ?? 0 + 1, format: nil)
+    }
+    
+    func openDetail(result: Result) {
+        
+        if let from = view {
+            
+            self.wireframe?.openWebView(result: result, view: from)
+        }
     }
 
 }
