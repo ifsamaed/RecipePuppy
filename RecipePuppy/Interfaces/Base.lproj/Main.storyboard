@@ -171,10 +171,10 @@
                             <constraint firstItem="gpp-OM-56P" firstAttribute="leading" secondItem="Q2P-IG-2s4" secondAttribute="leading" id="2BF-f2-uGb"/>
                             <constraint firstItem="JNX-6G-MNs" firstAttribute="leading" secondItem="p1M-OI-s8i" secondAttribute="leading" id="5QD-3E-SGB"/>
                             <constraint firstItem="gpp-OM-56P" firstAttribute="top" secondItem="JNX-6G-MNs" secondAttribute="bottom" id="Auy-iH-CLy"/>
+                            <constraint firstItem="gpp-OM-56P" firstAttribute="bottom" secondItem="Q2P-IG-2s4" secondAttribute="bottom" id="HII-sC-fHr"/>
                             <constraint firstItem="Q2P-IG-2s4" firstAttribute="trailing" secondItem="gpp-OM-56P" secondAttribute="trailing" id="XXz-pl-pin"/>
                             <constraint firstItem="JNX-6G-MNs" firstAttribute="top" secondItem="p1M-OI-s8i" secondAttribute="top" id="eJd-6W-Lcf"/>
                             <constraint firstItem="G6m-FJ-Qmh" firstAttribute="centerX" secondItem="p1M-OI-s8i" secondAttribute="centerX" id="n9P-Eb-8yX"/>
-                            <constraint firstItem="DOx-Qo-Jl9" firstAttribute="top" secondItem="gpp-OM-56P" secondAttribute="bottom" id="wY6-bj-1Fc"/>
                             <constraint firstItem="G6m-FJ-Qmh" firstAttribute="centerY" secondItem="p1M-OI-s8i" secondAttribute="centerY" id="yb6-3H-mGh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Q2P-IG-2s4"/>
