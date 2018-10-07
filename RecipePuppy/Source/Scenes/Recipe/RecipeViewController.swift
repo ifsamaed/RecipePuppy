@@ -72,17 +72,29 @@ class RecipeViewController: UIViewController, UISearchBarDelegate, UIScrollViewD
     // UISearchBarDelegate
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text == "" {
+            
+            self.clearTableView()
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if searchBar.text != "" && searchBar.text != nil {
             
+            if self.lowerSearchText.lowercased() != searchBar.text?.lowercased() {
+                
+                self.numberPagination = 1
+                self.clearTableView()
+            }
+            
             self.lowerSearchText = searchBar.text!.lowercased()
+            
             self.presenter?.searchRecipe(ingredients: lowerSearchText, page: numberPagination)
         } else {
             
-            self.numberPagination = 1
+            self.clearTableView()
             view.endEditing(true)
         }
     }
@@ -121,23 +133,6 @@ class RecipeViewController: UIViewController, UISearchBarDelegate, UIScrollViewD
     
     // MARK: - UIScrollViewDelegate
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-        // If the value of decelerate is false, that means the user stopped dragging the table view
-        if !decelerate {
-            
-
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
-    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         let isReachingEnd = scrollView.contentOffset.y >= 0
@@ -159,6 +154,17 @@ class RecipeViewController: UIViewController, UISearchBarDelegate, UIScrollViewD
         searchBar.isHidden = false
     }
     
+    // MARK: - Utils
+    
+    func clearTableView() {
+        
+        self.lowerSearchText = ""
+        self.numberPagination = 1
+        self.results.removeAll()
+        self.tableView.reloadData()
+        self.tableView.setContentOffset(.zero, animated: true)
+    }
+
 }
 
 // MARK: - ViewProtocol
