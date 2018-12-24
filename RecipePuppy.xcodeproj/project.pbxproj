@@ -193,7 +193,6 @@
 			children = (
 				43C74677216743580077291D /* AppDelegate */,
 				43F5C1EF2167C58E007414AC /* Commons */,
-				43F5C1F72168140B007414AC /* Components */,
 				43C7467B216743BD0077291D /* Models */,
 				43C7467C216743E70077291D /* Interactors */,
 				43C7467D216743FB0077291D /* Repositories */,
@@ -263,13 +262,6 @@
 				43F5C1F9216A5A92007414AC /* RecipeViewCell.xib */,
 			);
 			path = RecipeCell;
-			sourceTree = "<group>";
-		};
-		43F5C1F72168140B007414AC /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
